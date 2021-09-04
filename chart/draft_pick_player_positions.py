@@ -13,7 +13,7 @@ class DraftPickPlayerPositions(Charter):
         dfc = dfc.set_index("manager_initials")
         all_managers_name = "All Managers"
         manager = st.selectbox(
-            "Choose an manager:",
+            "Choose a manager:",
             [all_managers_name] + list(np.sort(dfc.index.unique())),
             0,
         )
@@ -43,7 +43,11 @@ class DraftPickPlayerPositions(Charter):
             yaxis_title_text="Share of Draft Picks",
             yaxis_range=[0, 100],
             yaxis_ticksuffix="%",
-            legend_title_text="Click positions to filter:",
-            legend_traceorder="reversed",
+            legend_orientation="h",
+            legend_y=-0.2,
+            legend_x=0.5,
+            legend_xanchor='center',
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(
+            fig, use_container_width=True, config={'displayModeBar': False}
+        )

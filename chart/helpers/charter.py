@@ -11,7 +11,6 @@ GBQ_CREDENTIALS = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
 GBQ_CLIENT = bigquery.Client(credentials=GBQ_CREDENTIALS)
-PAGE_TITLE = "\U0001F3C6 TCCC Fantasy Football \U0001F3C8"
 
 class Charter(ABC):
     def __init__(self, file):
