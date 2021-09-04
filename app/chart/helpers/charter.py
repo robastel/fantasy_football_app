@@ -2,10 +2,15 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 
 import streamlit as st
+from google.oauth2 import service_account
 from google.cloud import bigquery
 
+
 SQL_DIR = Path(Path(__file__).parents[2].resolve(), "sql")
-GBQ_CLIENT = bigquery.Client()
+GBQ_CREDENTIALS = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
+GBQ_CLIENT = bigquery.Client(credentials=GBQ_CREDENTIALS)
 PAGE_TITLE = "\U0001F3C6 TCCC Fantasy Football \U0001F3C8"
 
 class Charter(ABC):
