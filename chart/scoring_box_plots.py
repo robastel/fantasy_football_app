@@ -6,6 +6,7 @@ import matplotlib.colors as mcolors
 from chart.helpers.charter import Charter
 from chart.helpers import constants
 
+
 class ScoringBoxPlots(Charter):
     def get_chart(self, df, *args, **kwargs):
         manager_medians = (
@@ -31,15 +32,18 @@ class ScoringBoxPlots(Charter):
             )
         fig.update_layout(
             **constants.PLOTLY_DEFAULT_LAYOUT_KWARGS,
-            title_text="All Time Scoring (hover to see exact values)",
+            title_text="All Time Scoring",
             xaxis_title_text="Weekly Points Scored",
             xaxis_showgrid=True,
+            xaxis_tickvals=list(range(0, 301, 20)),
             xaxis_zeroline=False,
             yaxis_title_text="Manager",
             yaxis_showgrid=False,
             showlegend=False,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(
+            fig, use_container_width=True, config={"displayModeBar": False}
+        )
         st.write(
             "How to read this box-and-whiskers plot:"
             "\n\nEach manager has a boxplot consisting of 5 values."

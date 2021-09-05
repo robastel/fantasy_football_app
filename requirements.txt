@@ -91,6 +91,7 @@ traitlets==5.1.0
 tzlocal==3.0
 urllib3==1.26.6
 validators==0.18.2
+watchdog==2.1.5
 wcwidth==0.2.5
 webencodings==0.5.1
 widgetsnbextension==3.5.1

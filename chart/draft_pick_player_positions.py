@@ -6,14 +6,15 @@ import numpy as np
 from chart.helpers.charter import Charter
 from chart.helpers import constants
 
+
 class DraftPickPlayerPositions(Charter):
     def get_chart(self, df, *args, **kwargs):
         dfc = df.copy()
-        dfc = dfc.sort_values(['manager_initials', 'round_num'])
+        dfc = dfc.sort_values(["manager_initials", "round_num"])
         dfc = dfc.set_index("manager_initials")
         all_managers_name = "All Managers"
         manager = st.selectbox(
-            "Choose an manager:",
+            "Choose a manager:",
             [all_managers_name] + list(np.sort(dfc.index.unique())),
             0,
         )
@@ -43,7 +44,11 @@ class DraftPickPlayerPositions(Charter):
             yaxis_title_text="Share of Draft Picks",
             yaxis_range=[0, 100],
             yaxis_ticksuffix="%",
-            legend_title_text="Click positions to filter:",
-            legend_traceorder="reversed",
+            legend_orientation="h",
+            legend_y=-0.2,
+            legend_x=0.5,
+            legend_xanchor="center",
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(
+            fig, use_container_width=True, config={"displayModeBar": False}
+        )
