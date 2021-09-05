@@ -12,6 +12,7 @@ GBQ_CREDENTIALS = service_account.Credentials.from_service_account_info(
 )
 GBQ_CLIENT = bigquery.Client(credentials=GBQ_CREDENTIALS)
 
+
 class Charter(ABC):
     def __init__(self, file):
         self.sql_path = Path(SQL_DIR, file)

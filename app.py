@@ -39,16 +39,17 @@ def run():
     st.set_page_config(
         page_title=PAGE_TITLE,
         layout="centered",
-        initial_sidebar_state="collapsed",
+        initial_sidebar_state="expanded",
     )
     st.title(PAGE_TITLE)
-    expander = st.expander("Click to choose a chart", expanded=False)
-    chart_name = expander.radio("", CHARTS, 0)
-    print(vars(expander))
+    st.sidebar.header(PAGE_TITLE)
+    chart_name = st.sidebar.radio("Select a page:", CHARTS, 0)
     if chart_name == "Welcome":
         st.write(
-            "Welcome to the statistics site of TCCC Fantasy Football!"
-            " Choose a chart above."
+            """Welcome to the statistics site of TCCC Fantasy Football!"""
+            """\n\nChoose a page in the left sidebar."""
+            """\n\nUse the ">" symbol in the upper left corner to expand the"""
+            """ sidebar if it is not visible."""
         )
     else:
         chart_dict = CHARTS[chart_name]
