@@ -5,4 +5,5 @@ SELECT
 FROM
     robboli-broc.fantasy_football.matchups
 WHERE
-    is_median_matchup = 0
+    is_completed = 1
+    AND is_median_matchup = 0
