@@ -14,6 +14,9 @@ class AllTimeStandings(Charter):
             "\U0001F949",
             "Made Playoffs",
             "Reg. Season Win %",
+            "Reg. Season 1st Place",
+            "Reg. Season Most Points",
+            "Reg. Season High Single Week",
             "Seasons Played",
         ]
         dfc["Reg. Season Win %"] = (100 * dfc["Reg. Season Win %"]).round(1)
