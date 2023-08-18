@@ -10,15 +10,15 @@ class AllTimeStandings(Charter):
         dfc = df.copy()
         dfc.columns = [
             "Manager",
-            "1st \U0001F947",
-            "2nd \U0001F948",
-            "3rd \U0001F949",
+            "\U0001F947",
+            "\U0001F948",
+            "\U0001F949",
             "Playoffs",
             "TCCC Rating",
             "RS Win %",
             "RS 1st",
-            "RS Points",
-            "RS High Week",
+            "RS Pts",
+            "RS Top Week",
             "Seasons",
         ]
         dfc["RS Win %"] = 100 * dfc["RS Win %"]

@@ -31,12 +31,6 @@ CHARTS = {
         "args": [],
         "kwargs": {},
     },
-    "Favorite Players": {
-        "class": None,
-        "sql": "top_single_week_scores.sql",
-        "args": [],
-        "kwargs": {},
-    },
 }
 
 st.set_page_config(
