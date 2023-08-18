@@ -1,7 +1,8 @@
 import streamlit as st
 
+import pandas as pd
+
 from chart.helpers.charter import Charter
-from chart.helpers import constants
 
 
 class AllTimeStandings(Charter):
@@ -12,29 +13,17 @@ class AllTimeStandings(Charter):
             "\U0001F947",
             "\U0001F948",
             "\U0001F949",
-            "Made Playoffs",
-            "Reg. Season Win %",
-            "Reg. Season 1st Place",
-            "Reg. Season Most Points",
-            "Reg. Season High Single Week",
-            "Seasons Played",
+            "Playoffs",
+            "TCCC Rating",
+            "RS Win %",
+            "RS 1st",
+            "RS Pts",
+            "RS Top Week",
+            "Seasons",
         ]
-        dfc["Reg. Season Win %"] = (100 * dfc["Reg. Season Win %"]).round(1)
-        dfc = dfc.astype(str)
-        dfc["Reg. Season Win %"] = dfc["Reg. Season Win %"] + " %"
-        dfc = dfc.replace("0", "")
+        dfc["RS Win %"] = 100 * dfc["RS Win %"]
         dfc = dfc.set_index("Manager")
-        dfc = dfc.style.set_table_styles(
-            constants.INCREASE_TABLE_FONT_SIZE
-            + constants.CENTER_ALIGN_TABLE_TEXT
-            + [
-                {
-                    "selector": f"thead tr th:nth-of-type({n})",
-                    "props": [
-                        ("font-size", "3em"),
-                    ],
-                }
-                for n in range(2, 5)
-            ]
-        )
-        st.table(dfc)
+        dfc = dfc.style.text_gradient(cmap="summer_r", low=.15, high=.15, axis=0)
+        dfc = dfc.format(formatter="{:.1f}%", subset='RS Win %')
+        st.dataframe(dfc, height=493, use_container_width=True)
+        st.write('*RS = Regular Season')

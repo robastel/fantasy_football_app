@@ -5,24 +5,34 @@ WITH top_single_weeks AS
         , year
         , week
         , points
-        , RANK() OVER(ORDER BY points DESC) AS score_rank
+        , RANK() OVER(ORDER BY points DESC) AS ranking
     FROM
         robboli-broc.fantasy_football.matchups
     WHERE
         is_completed = 1
         AND is_median_matchup = 0
-    ORDER BY
-        score_rank
-    LIMIT
-        20
+)
+
+, matchups_per_season AS (
+    SELECT
+        1.0 * COUNT(matchup_id) / COUNT(DISTINCT season_id) AS avg_matchups_per_season
+    FROM
+        robboli-broc.fantasy_football.matchups
+    WHERE
+        is_median_matchup = 0
 )
 
 SELECT
-    manager_initials
-    , FORMAT("%'.2f", points) AS points
-    , CONCAT(',', CAST(year AS STRING))
-    , CONCAT(',Week', CAST(week AS STRING))
+    tsw.ranking
+    , tsw.manager_initials
+    , CAST(tsw.year AS STRING) AS year
+    , tsw.week
+    , tsw.points
+    , mps.avg_matchups_per_season
 FROM
-    top_single_weeks
-WHERE
-    score_rank <= 10
+    top_single_weeks AS tsw
+INNER JOIN
+    matchups_per_season AS mps
+    ON 1=1
+ORDER BY
+    ranking

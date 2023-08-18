@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "fantasy-football-app"
+version = "0.1.0"
+description = ""
+authors = ["Robert Astel <rob.astel@gmail.com>"]
+readme = "README.md"
+packages = [{include = "fantasy_football_app"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.13"
+streamlit = "^1.25.0"
+plotly = "^5.16.0"
+pandas = "^2.0.3"
+numpy = "^1.25.2"
+matplotlib = "^3.7.2"
+google-api-python-client = "^2.96.0"
+google-cloud-bigquery = "^3.11.4"
+db-dtypes = "^1.1.1"
+scipy = "^1.11.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

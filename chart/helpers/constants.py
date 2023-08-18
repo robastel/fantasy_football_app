@@ -1,37 +1,9 @@
 import streamlit as st
 
-CENTER_ALIGN_TABLE_TEXT = [
-    {
-        "selector": "td",
-        "props": [
-            ("text-align", "center"),
-        ],
-    },
-    {
-        "selector": "th",
-        "props": [
-            ("text-align", "center"),
-        ],
-    },
-]
-
-INCREASE_TABLE_FONT_SIZE = [
-    {
-        "selector": "td",
-        "props": [
-            ("font-size", "1.25em"),
-        ],
-    },
-    {
-        "selector": "th",
-        "props": [
-            ("font-size", "1.25em"),
-        ],
-    },
-]
-
 PLOTLY_DEFAULT_LAYOUT_KWARGS = {
     "title_x": 0.5,
+    "title_xanchor": "center",
+    "title_xref": "paper",
     "margin": {"l": 30, "r": 30, "t": 30, "b": 30},
     "plot_bgcolor": "rgba(0, 0, 0, 0)",
     "paper_bgcolor": "rgba(0, 0, 0, 0)",

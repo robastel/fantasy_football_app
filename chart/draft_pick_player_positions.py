@@ -1,5 +1,6 @@
 import streamlit as st
 import plotly.graph_objects as go
+from plotly.colors import qualitative
 import pandas as pd
 import numpy as np
 
@@ -27,18 +28,20 @@ class DraftPickPlayerPositions(Charter):
         df_pos = df_combined[player_positions]
         df_pos = 100 * df_pos.div(df_pos.sum(axis=1), axis=0)
         fig = go.Figure()
-        for pos in player_positions:
+        colors = qualitative.Vivid
+        for i, pos in enumerate(player_positions):
             fig.add_trace(
                 go.Bar(
                     x=round_nums,
                     y=df_pos.loc[manager, pos],
                     name=pos.upper(),
+                    marker_color=colors[i],
                 )
             )
         fig.update_layout(
             **constants.PLOTLY_DEFAULT_LAYOUT_KWARGS,
             barmode="relative",
-            title_text="Draft Pick Player Position by Round",
+            title_text="Positions Drafted by Round",
             xaxis_title_text="Draft Round",
             xaxis_type="category",
             yaxis_title_text="Share of Draft Picks",
