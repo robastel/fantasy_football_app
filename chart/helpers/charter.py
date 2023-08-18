@@ -13,11 +13,23 @@ GBQ_CREDENTIALS = service_account.Credentials.from_service_account_info(
 GBQ_CLIENT = bigquery.Client(credentials=GBQ_CREDENTIALS)
 
 
+def hash_func(x):
+    return hash(x.sql_path.read_text())
+
+
 class Charter(ABC):
     def __init__(self, file):
         self.sql_path = Path(SQL_DIR, file)
 
-    @st.cache(ttl=60 * 60 * 6)
+    @st.cache_data(
+        ttl=60 * 60 * 6,
+        hash_funcs={
+            "chart.all_time_standings.AllTimeStandings": hash_func,
+            "chart.draft_pick_player_positions.DraftPickPlayerPositions": hash_func,
+            "chart.scoring_box_plots.ScoringBoxPlots": hash_func,
+            "chart.top_single_week_scores.TopSingleWeekScores": hash_func,
+        }
+    )
     def get_df(self):
         sql = self.sql_path.read_text()
         df = GBQ_CLIENT.query(sql).result().to_dataframe()

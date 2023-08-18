@@ -5,24 +5,21 @@ WITH top_single_weeks AS
         , year
         , week
         , points
-        , RANK() OVER(ORDER BY points DESC) AS score_rank
+        , RANK() OVER(ORDER BY points DESC) AS ranking
     FROM
         robboli-broc.fantasy_football.matchups
     WHERE
         is_completed = 1
         AND is_median_matchup = 0
-    ORDER BY
-        score_rank
-    LIMIT
-        20
 )
 
 SELECT
-    manager_initials
-    , FORMAT("%'.2f", points) AS points
-    , CONCAT(',', CAST(year AS STRING))
-    , CONCAT(',Week', CAST(week AS STRING))
+    ranking
+    , manager_initials
+    , CAST(year AS STRING) AS year
+    , week
+    , points
 FROM
     top_single_weeks
-WHERE
-    score_rank <= 10
+ORDER BY
+    ranking

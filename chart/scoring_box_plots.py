@@ -14,10 +14,10 @@ class ScoringBoxPlots(Charter):
         )
         managers = manager_medians.index
         normalized_medians = mcolors.Normalize(
-            vmin=manager_medians.min(),
+            vmin=manager_medians.min() * .99,
             vmax=manager_medians.max(),
         )
-        color_map = plt.cm.get_cmap("RdYlGn")
+        color_map = plt.cm.get_cmap("summer_r")
         fig = go.Figure()
         for manager, median in zip(managers, manager_medians):
             fig.add_trace(
@@ -32,7 +32,7 @@ class ScoringBoxPlots(Charter):
             )
         fig.update_layout(
             **constants.PLOTLY_DEFAULT_LAYOUT_KWARGS,
-            title_text="All Time Scoring",
+            title_text="All Time Scoring Dispersion",
             xaxis_title_text="Weekly Points Scored",
             xaxis_showgrid=True,
             xaxis_tickvals=list(range(0, 301, 20)),

@@ -1,23 +1,27 @@
 import streamlit as st
-import pandas as pd
+from scipy import stats
 
 from chart.helpers.charter import Charter
-from chart.helpers import constants
 
 
 class TopSingleWeekScores(Charter):
     def get_chart(self, df, *args, **kwargs):
         dfc = df.copy()
+        dfc['z-score'] = stats.zscore(dfc['points'])
+        dfc['approx_odds'] = (1 / (1 - stats.norm.cdf(dfc['z-score'])))
+        dfc['approx_odds'] = '1 in ' + dfc['approx_odds'].astype(int).astype(str)
         dfc.columns = [
+            "Rank",
             "Manager",
-            "Points",
             "Year",
             "Week",
+            "Points",
+            "Z-score",
+            "Approximate Odds",
         ]
-        dfc["concat"] = dfc["Manager"] + dfc["Year"] + dfc["Week"]
-        dfc = dfc.set_index("concat")
-        dfc = pd.DataFrame(dfc["Points"]).style.set_table_styles(
-            constants.CENTER_ALIGN_TABLE_TEXT
-            + constants.INCREASE_TABLE_FONT_SIZE
+        st.dataframe(
+            dfc.head(100),
+            hide_index=True,
+            use_container_width=True,
+            height=735
         )
-        st.table(dfc)
