@@ -26,7 +26,7 @@ class TopSingleWeekScores(Charter):
             "Points",
             "Avg Matchups Per Season",
             "Z-score",
-            "League-wide expected frequency of achieving this score or higher",
+            "Expected Frequency",
         ]
         st.dataframe(
             dfc.drop(['Avg Matchups Per Season', 'Z-score'], axis=1).head(100),

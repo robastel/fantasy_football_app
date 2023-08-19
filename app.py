@@ -5,27 +5,27 @@ from chart.scoring_box_plots import ScoringBoxPlots
 from chart.draft_pick_player_positions import DraftPickPlayerPositions
 from chart.top_single_week_scores import TopSingleWeekScores
 
-PAGE_TITLE = "\U0001F3C6 TCCC Fantasy Football \U0001F3C8"
+PAGE_TITLE = "TCCC \U0001F984 \U0001F3C8 \U0001F3C6"
 CHARTS = {
-    "All Time Standings": {
+    "Standings": {
         "class": AllTimeStandings,
         "sql": "all_time_standings.sql",
         "args": [],
         "kwargs": {},
     },
-    "Scoring Dispersion": {
+    "Scoring": {
         "class": ScoringBoxPlots,
         "sql": "matchups_h2h.sql",
         "args": [],
         "kwargs": {},
     },
-    "Positions Drafted By Round": {
+    "Draft": {
         "class": DraftPickPlayerPositions,
         "sql": "draft_pick_player_positions.sql",
         "args": [],
         "kwargs": {},
     },
-    "Top Single Week Scores": {
+    "Top Weeks": {
         "class": TopSingleWeekScores,
         "sql": "top_single_week_scores.sql",
         "args": [],

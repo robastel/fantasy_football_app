@@ -10,20 +10,19 @@ class AllTimeStandings(Charter):
         dfc = df.copy()
         dfc.columns = [
             "Manager",
-            "\U0001F947",
-            "\U0001F948",
-            "\U0001F949",
+            "1st\U0001F947",
+            "2nd\U0001F948",
+            "3rd\U0001F949",
             "Playoffs",
-            "TCCC Rating",
-            "RS Win %",
-            "RS 1st",
-            "RS Pts",
-            "RS Top Week",
+            "TCCCR",
+            "RSW%",
+            "RS1",
+            "RSPts",
+            "RSTopWeek",
             "Seasons",
         ]
-        dfc["RS Win %"] = 100 * dfc["RS Win %"]
+        dfc["RSW%"] = 100 * dfc["RSW%"]
         dfc = dfc.set_index("Manager")
-        dfc = dfc.style.text_gradient(cmap="summer_r", low=.15, high=.15, axis=0)
-        dfc = dfc.format(formatter="{:.1f}%", subset='RS Win %')
+        dfc = dfc.style.text_gradient(cmap="summer_r", low=.15, high=.3, axis=0)
+        dfc = dfc.format(formatter="{:.1f}%", subset='RSW%')
         st.dataframe(dfc, height=493, use_container_width=True)
-        st.write('*RS = Regular Season')
