@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Robert Astel <rob.astel@gmail.com>"]
 readme = "README.md"
-packages = [{include = "fantasy_football_app"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
