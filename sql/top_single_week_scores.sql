@@ -25,14 +25,12 @@ WITH top_single_weeks AS
 SELECT
     tsw.ranking
     , tsw.manager_initials
-    , CAST(tsw.year AS STRING) AS year
-    , tsw.week
+    , CONCAT(CAST(tsw.year AS STRING), 'W', CAST(tsw.week AS STRING)) AS week
     , tsw.points
     , mps.avg_matchups_per_season
 FROM
     top_single_weeks AS tsw
-INNER JOIN
+CROSS JOIN
     matchups_per_season AS mps
-    ON 1=1
 ORDER BY
     ranking

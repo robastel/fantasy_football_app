@@ -13,15 +13,14 @@ class TopSingleWeekScores(Charter):
             / dfc['avg_matchups_per_season']
         )
         dfc['approx_odds'] = dfc['approx_odds'].apply(
-                lambda x: (
-                    f'Once every {round(x, 2)} seasons' if x > 1
-                    else f'{round(1 / x, 2)} times per season'
-                )
+            lambda x: (
+                f'Once per {round(x, 2)} seasons' if x > 1
+                else f'{round(1 / x, 2)} times per season'
+            )
         )
         dfc.columns = [
             "Rank",
             "Manager",
-            "Year",
             "Week",
             "Points",
             "Avg Matchups Per Season",
