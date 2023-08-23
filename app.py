@@ -187,38 +187,64 @@ with scoring:
 
     # TOP SINGLE WEEK SCORES
     with top_weeks:
-        dfs["top_single_week_scores"]["z-score"] = stats.zscore(
+        dfs["top_single_week_scores"]["z_score"] = stats.zscore(
             dfs["top_single_week_scores"]["points"]
         )
-        dfs["top_single_week_scores"]["approx_odds"] = (
-            1 / (1 - stats.norm.cdf(dfs["top_single_week_scores"]["z-score"]))
+        dfs["top_single_week_scores"]["expected_frequency"] = (
+            1 / (1 - stats.norm.cdf(dfs["top_single_week_scores"]["z_score"]))
         ) / dfs["top_single_week_scores"]["avg_matchups_per_season"]
-        dfs["top_single_week_scores"]["approx_odds"] = dfs[
+        dfs["top_single_week_scores"]["expected_frequency"] = dfs[
             "top_single_week_scores"
-        ]["approx_odds"].apply(
+        ]["expected_frequency"].apply(
             lambda x: (
                 f"Once per {round(x, 2)} seasons"
                 if x > 1
                 else f"{round(1 / x, 2)} times per season"
             )
         )
-        dfs["top_single_week_scores"].columns = [
-            "Rank",
-            "Manager",
-            "Week",
-            "Points",
-            "Avg Matchups Per Season",
-            "Z-score",
-            "Expected Frequency",
-        ]
-        st.dataframe(
+        top_100_single_week_scores = (
             dfs["top_single_week_scores"]
-            .drop(["Avg Matchups Per Season", "Z-score"], axis=1)
-            .head(100),
+            .drop(
+                [
+                    "avg_matchups_per_season",
+                    "z_score",
+                ],
+                axis=1,
+            )
+            .head(100)
+        )
+        st.dataframe(
+            top_100_single_week_scores,
             hide_index=True,
             use_container_width=True,
             height=735,
+            column_config={
+                "ranking": st.column_config.Column(
+                    label="Rank",
+                    help="All time single week rank",
+                ),
+                "manager_initials": st.column_config.Column(
+                    label="Manager",
+                    help="Manager initials",
+                ),
+                "week": st.column_config.Column(
+                    label="Week",
+                    help="Week of a particular season",
+                ),
+                "points": st.column_config.Column(
+                    label="Points",
+                    help="Points scored during the week",
+                ),
+                "expected_frequency": st.column_config.Column(
+                    label="Expected Frequency",
+                    help=(
+                        "Expected league-wide frequency of a score at least"
+                        " this high occurring"
+                    ),
+                ),
+            },
         )
+        st.write("Note: Hover over column labels for descriptions.")
 
 with drafts:
     positions, favorites = st.tabs(DRAFT_SUB_TAB_NAMES)
@@ -298,13 +324,14 @@ with drafts:
                 ),
                 "favorite_players": st.column_config.Column(
                     label=(
-                        "Favorite Players (# of Seasons Drafted [3 seasons"
-                        " minimum])"
+                        "Favorite Players (# of Seasons Drafted)"
                     ),
                     help=(
-                        "Names of most drafted players by team with the number"
-                        " of season drafted in parentheses"
+                        "Names of the manager's most drafted players with the"
+                        " number of season drafted in parentheses. 3 seasons"
+                        " minimum."
                     ),
                 ),
             },
         )
+        st.write("Note: Hover over column labels for descriptions.")
