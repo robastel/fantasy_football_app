@@ -16,6 +16,7 @@ google-api-python-client = "^2.96.0"
 google-cloud-bigquery = "^3.11.4"
 db-dtypes = "^1.1.1"
 scipy = "^1.11.1"
+black = "^23.7.0"
 
 
 [build-system]
