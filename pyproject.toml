@@ -1,7 +1,5 @@
 [tool.poetry]
-name = "fantasy-football-app"
-version = "0.1.0"
-description = ""
+package-mode = false
 authors = ["Robert Astel <rob.astel@gmail.com>"]
 readme = "README.md"
 
